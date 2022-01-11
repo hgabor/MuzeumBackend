@@ -1,66 +1,95 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+# Múzeum alkalmazás backend projekt
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A múzeum festmények adatait tárolja.
 
-## About Laravel
+## Telepítési lépések
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+* Készítsünk egy másolatot az .env.example fájlról, .env néven!
+* A fájlban írjuk át az adatbázis kapcsolat adatait a megfelelőre!
+* Konzolban hajtsuk végre az alábbi utasításokat:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+    php artisan key:generate --ansi
+    php artisan migrate
+    php artisan db:seed
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+A fejlesztői szervert az alábbi utasítással indíthatjuk el:
 
-## Learning Laravel
+    php artisan serve
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Ellenőrizzük, hogy minden rendben van-e, hogy az alábbi URL teszt JSON adatokat ad-e vissza:
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+http://127.0.0.1:8000/api/paintings
 
-## Laravel Sponsors
+## Adatszerkezet
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+* id: egész
+* title: a festmény címe, szöveg (max 255)
+* year: a készítés éve, szám
+* on_display: éppen ki van-e állítva, logikai
 
-### Premium Partners
+## API végpontok
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[CMS Max](https://www.cmsmax.com/)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-- **[Romega Software](https://romegasoftware.com)**
+Minden be- és kimeneti adat JSON formátumú.
 
-## Contributing
+**GET* /api/paintings**
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Visszaadja a festmények listáját.
 
-## Code of Conduct
+    [
+        {
+            "id": 1,
+            "title": "Midnightblue Durwardview",
+            "year": 1988,
+            "on_display": false
+        },
+        {
+            "id":2,
+            "title": "Midnightblue Durwardview11",
+            "year": 2000,
+            "on_display": true
+        }
+    ]
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+**POST /api/paintings**
 
-## Security Vulnerabilities
+Létrehoz egy új festményt a megadott adatokkal. Az id-n kívül minden mező megadása kötelező!
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Visszaadja a létrehozott festmény adatait, beleértve a generált ID-t.
 
-## License
+**GET /api/paintings/{id}**
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Az *id* azonosítójú festmény adatait adja vissza.
+
+**PATCH /api/paintings/{id}**
+
+Módosítja az *id* azonosítójú festmény adatait. Csak a módosítandó adatokat kell megadni, pl. ha csak az évszámot szeretnénk módosítani, akkor elég ennyit megadni:
+
+    {
+        "year": 1888,
+    }
+
+Az ID nem módosítható.
+
+Visszaadja a módosított festmény adatait.
+
+**DELETE /api/paintings/{id}**
+
+Törli az adott azonosítójú festményt.
+
+Visszatérésnek nem ad vissza tartalmat.
+
+## Hibakezelés
+
+Ha a végpontot nem megfelelően hívtuk meg, vagy az adatok nem felelnek meg a leírtaknak, a backend az alábbi módon jelzi a hibaeseteket:
+
+* A HTTP státusz kód a 400-as sávból fog kikerülni, a hiba típusának megfelelően
+* A visszakapott JSON objetum "message" tulajdonsága tartalmazza a hiba okát.
+
+Pl.: GET http://localhost:8000/api/paintings/9999 (nem létező id)
+
+404 Not Found
+    {
+        "message": "No query results for model"
+    }
+
+A kérésnél ne felejtsük beállítani az "Accept" header értékét "application/json"-ra!
