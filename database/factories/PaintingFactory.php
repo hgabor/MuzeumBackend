@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
+use \Illuminate\Support\Str;
 
 class PaintingFactory extends Factory
 {
@@ -14,7 +15,9 @@ class PaintingFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'title' => Str::headline($this->faker->colorName() . ' ' . $this->faker->city()),
+            'year' => $this->faker->year(),
+            'on_display' => $this->faker->boolean(),
         ];
     }
 }

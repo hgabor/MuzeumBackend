@@ -20,7 +20,6 @@ class CreatePaintingsTable extends Migration
             $table->integer('year');
             $table->boolean('on_display');
             $table->timestamps();
-            $table->foreignIdFor(User::class);
         });
     }
 

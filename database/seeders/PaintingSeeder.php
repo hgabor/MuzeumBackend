@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Painting;
 use Illuminate\Database\Seeder;
 
 class PaintingSeeder extends Seeder
@@ -13,6 +14,6 @@ class PaintingSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Painting::factory(10)->create();
     }
 }
