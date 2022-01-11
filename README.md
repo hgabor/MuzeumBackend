@@ -32,7 +32,7 @@ http://127.0.0.1:8000/api/paintings
 
 Minden be- és kimeneti adat JSON formátumú.
 
-**GET* /api/paintings**
+**GET /api/paintings**
 
 Visszaadja a festmények listáját.
 
