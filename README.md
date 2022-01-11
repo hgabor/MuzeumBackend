@@ -88,7 +88,7 @@ Ha a végpontot nem megfelelően hívtuk meg, vagy az adatok nem felelnek meg a 
 
 Pl.: GET http://localhost:8000/api/paintings/9999 (nem létező id)
 
-404 Not Found
+    404 Not Found
     {
         "message": "No query results for model"
     }
