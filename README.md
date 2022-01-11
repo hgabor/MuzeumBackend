@@ -6,7 +6,8 @@ A múzeum festmények adatait tárolja.
 
 * Készítsünk egy másolatot az .env.example fájlról, .env néven!
 * A fájlban írjuk át az adatbázis kapcsolat adatait a megfelelőre!
-* Konzolban hajtsuk végre az alábbi utasításokat:
+
+A konzolban hajtsuk végre az alábbi utasításokat:
 
     php artisan key:generate --ansi
     php artisan migrate
