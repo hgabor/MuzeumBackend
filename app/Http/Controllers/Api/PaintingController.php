@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\PaintingRequest;
+use App\Http\Requests\PaintingUpdateRequest;
 use App\Models\Painting;
 use Illuminate\Http\Request;
 
@@ -35,9 +37,12 @@ class PaintingController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PaintingRequest $request)
     {
-        //
+        $p = new Painting();
+        $p->fill($request->all());
+        $p->save();
+        return response()->json($p, 201);
     }
 
     /**
@@ -46,9 +51,10 @@ class PaintingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(int $id)
     {
-        //
+        $p = Painting::findOrFail($id);
+        return response()->json($p);
     }
 
     /**
@@ -69,9 +75,12 @@ class PaintingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PaintingUpdateRequest $request, int $id)
     {
-        //
+        $p = Painting::findOrFail($id);
+        $p->fill($request->all());
+        $p->save();
+        return response()->json($p, 200);
     }
 
     /**
@@ -80,8 +89,9 @@ class PaintingController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(int $id)
     {
-        //
+        Painting::destroy($id);
+        return response()->noContent();
     }
 }
