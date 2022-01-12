@@ -9,6 +9,7 @@ A múzeum festmények adatait tárolja.
 
 A konzolban hajtsuk végre az alábbi utasításokat:
 
+    composer install
     php artisan key:generate --ansi
     php artisan migrate
     php artisan db:seed
