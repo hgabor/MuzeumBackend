@@ -10,4 +10,11 @@ class Statue extends Model
     use HasFactory;
 
     protected $fillable = ['person', 'height', 'price'];
+
+    protected $visible = [
+        'id',
+        'person',
+        'height',
+        'price',
+    ];
 }

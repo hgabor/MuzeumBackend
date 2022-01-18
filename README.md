@@ -1,6 +1,6 @@
 # Múzeum alkalmazás backend projekt
 
-A múzeum festmények adatait tárolja.
+A múzeumban kiállított műremekek adatait tárolja.
 
 ## Telepítési lépések
 
@@ -22,12 +22,25 @@ Ellenőrizzük, hogy minden rendben van-e, hogy az alábbi URL teszt JSON adatok
 
 http://127.0.0.1:8000/api/paintings
 
-## Adatszerkezet
+## Adattáblák
+
+### paintings
+
+A kiállított festmények
 
 * id: egész
 * title: a festmény címe, szöveg (max 255)
 * year: a készítés éve, szám
 * on_display: éppen ki van-e állítva, logikai
+
+### statues
+
+Az eladásra kínált szobrok
+
+* id: egész
+* person: a szobor kit ábrázol (max 255)
+* height: a magassága cm-ben
+* price: a szobor eladási ára
 
 ## API végpontok
 
@@ -79,6 +92,16 @@ Visszaadja a módosított festmény adatait.
 Törli az adott azonosítójú festményt.
 
 Visszatérésnek nem ad vissza tartalmat.
+
+**GET /api/statues**
+
+**POST /api/statues**
+
+**GET /api/statues/{id}**
+
+**PATCH /api/statues/{id}**
+
+**DELETE /api/statues/{id}**
 
 ## Hibakezelés
 
