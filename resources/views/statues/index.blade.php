@@ -22,6 +22,13 @@
             </td>
             <td>{{ $statue->height }}</td>
             <td>{{ $statue->price }}</td>
+            <td>
+                <form method="POST" action="{{ route('statues.destroy', $statue->id) }}">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit">Törlés</button>
+                </form>
+            </td>
         </tr>
     @endforeach
     </table>
