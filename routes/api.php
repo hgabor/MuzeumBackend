@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\PaintingController;
 use App\Http\Controllers\Api\StatueController;
 use Illuminate\Http\Request;
@@ -20,5 +21,6 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource('/paintings', PaintingController::class);
-Route::resource('/statues', StatueController::class);
+Route::resource('paintings', PaintingController::class)->middleware('auth:sanctum');
+Route::resource('statues', StatueController::class);
+Route::post('login', [AuthController::class, 'login']);
