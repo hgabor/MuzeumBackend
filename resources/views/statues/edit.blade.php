@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+@extends('layout')
+
+@section('content')
     <h1>Edit statue</h1>
     <form method='POST' action="{{ route('statues.update', $statue->id) }}">
         @method('PATCH')
@@ -27,5 +21,4 @@
             <input type="submit" value="Edit">
         </div>
     </form>
-</body>
-</html>
+@endsection

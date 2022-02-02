@@ -1,15 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ mix('css/bootstrap.css') }}">
-    <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-    <link rel="stylesheet" href="{{ mix('css/masik.css') }}">
-    <title>Document</title>
-</head>
-<body>
+@extends('layout')
+
+@section('content')
     <h1>New statue</h1>
 
     <!-- Összes hiba egy helyen -->
@@ -47,5 +38,4 @@
             <input type="submit" value="Create" class="btn btn-primary">
         </div>
     </form>
-</body>
-</html>
+@endsection
